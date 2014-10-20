@@ -70,18 +70,22 @@ return $legacyeventdata;
  //$grade->grade = $bestgrade;
  //$grade->timemodified = time();
 
+ require_once('../../config.php');
+ 
+ 
 function notify_eportfolio_exam_completed($quiz, $grade) {
   global $CFG, $USER, $COURSE, $DB;
 
+  print_r('notify_eportfolio_exam_completed called.');
   // build an array with the form data to send
   $data = array();
-  $data['username'] = $USER->username;
-  $data['email'] = $USER->email;
-  $data['course_identifier'] = $DB->get_record('course', array('id' => $event->courseid));
-  $data['quiz_name'] = $quiz->name;
-  $data['exam_completed_at'] = $grade->timemodified ? $grade->timemodified : time();
+  $data['username'] = $USER->username; print_r('$data[username]: ', $data->username);
+  $data['email'] = $USER->email; print_r('$data[email]: ', $data->email);
+  $data['course_identifier'] = $DB->get_record('course', array('id' => $event->courseid)); print_r('$data[course_identifier]: ', $data->course_identifier);
+  $data['quiz_name'] = $quiz->name; print_r('$data[quiz_name]: ', $data->quiz_name);
+  $data['exam_completed_at'] = $grade->timemodified ? $grade->timemodified : time(); print_r('$data[exam_completed_at]: ', $data->exam_completed_at);
 
-  $exam_score = round(100*$grade->grade/$quiz->grade);
+  $exam_score = round(100*$grade->grade/$quiz->grade); print_r('Set exam_score: ', $exam_score, '$grade-> grade ', $grade->grade, '$quiz->grade ', $quiz->grade);
   $data['exam_score'] = $exam_score;
 
   $secret = 'tNrY2mPXGS533jkkxDxR4j8YDkSm6krgNqdR1bqEny2NMRyHd7hBqQvU8dYFF9';
