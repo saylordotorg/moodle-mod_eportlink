@@ -22,7 +22,7 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2014101600;
+$plugin->version   = 2014101700;
 $plugin->requires  = 2014051200; // Moodle 2.7.0
 $plugin->cron      = 0;
 $plugin->component = 'local_eportlink';
