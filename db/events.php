@@ -19,25 +19,28 @@
 * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
+
+defined('MOODLE_INTERNAL') || die();
+
 //Event Handlers
 $handlers = array (
     'quiz_attempt_submitted' => array (
         'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'notify_eportfolio_exam_completed',
+        'handlerfunction'  => 'eportlink_get_info_quiz_attempt_submitted',
         'schedule'         => 'instant',
         'internal'         => 1,
     ),
  
     'question_manually_graded' => array (
         'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'notify_eportfolio_exam_completed',
+        'handlerfunction'  => 'eportlink_get_info_question_manually_graded',
         'schedule'         => 'instant',
         'internal'         => 1,
 	),
 	
 	'user_graded' => array (
         'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'notify_eportfolio_exam_completed',
+        'handlerfunction'  => 'eportlink_get_info_user_graded',
         'schedule'         => 'instant',
         'internal'         => 1,
 	),
