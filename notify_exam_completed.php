@@ -17,7 +17,32 @@
  
  
  
- 
+ /**
+ * All other event classes must extend this class.
+ *
+ * @package    core
+ * @since      Moodle 2.6
+ * @copyright  2013 Petr Skoda {@link http://skodak.org}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @property-read string $eventname Name of the event (=== class name with leading \)
+ * @property-read string $component Full frankenstyle component name
+ * @property-read string $action what happened
+ * @property-read string $target what/who was target of the action
+ * @property-read string $objecttable name of database table where is object record stored
+ * @property-read int $objectid optional id of the object
+ * @property-read string $crud letter indicating event type
+ * @property-read int $edulevel log level (one of the constants LEVEL_)
+ * @property-read int $contextid
+ * @property-read int $contextlevel
+ * @property-read int $contextinstanceid
+ * @property-read int $userid who did this?
+ * @property-read int $courseid the courseid of the event context, 0 for contexts above course
+ * @property-read int $relateduserid
+ * @property-read int $anonymous 1 means event should not be visible in reports, 0 means normal event,
+ *                    create() argument may be also true/false.
+ * @property-read mixed $other array or scalar, can not contain objects
+ * @property-read int $timecreated
  /**
 * All other event classes must extend this class.
 *
@@ -64,26 +89,69 @@ return $legacyeventdata;
 */
  
  //$attempts = quiz_get_user_attempts($quiz->id, $userid); function quiz_save_best_grade($quiz, $userid = null, $attempts = array())
+//$bestgrade = quiz_calculate_best_grade($quiz, $attempts);
  //$grade = new stdClass();
  //$grade->quiz = $quiz->id;
  //$grade->userid = $userid;
  //$grade->grade = $bestgrade;
  //$grade->timemodified = time();
 
- require_once('../../config.php');
+defined('MOODLE_INTERNAL') || die();
+
+require_once('../../config.php');
+require_once($CFG->dirroot . '/mod/quiz/lib.php');
+require_once($CFG->dirroot . '/mod/quiz/locallib.php');
  
- 
-function notify_eportfolio_exam_completed($quiz, $grade) {
+function eportlink_get_info_quiz_attempt_submitted($eventdata) {
+  global $DB;
+// Gather information necessary for eportlink_notify_eportfolio_exam_completed
+// when quiz_attempt_submitted event is triggered.
+  $userid = $eventdata->userid;
+  $courseid = $eventdata->courseid;
+  $quizid = $eventdata->quizid;
+
+  $quiz = $DB->get_record('quiz', array('id' => $quizid));
+  $attempts = quiz_get_user_attempts($quizid, $userid);
+  $bestgrade = quiz_calculate_best_grade($quiz, $attempts);
+
+  $grade = new stdClass();
+  $grade->quiz = $quizid;
+  $grade->userid = $userid;
+  $grade->grade = $bestgrade;
+  $grade->timemodified = time();
+  
+  eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid)
+
+  return true;
+}
+
+function eportlink_get_info_question_manually_graded($eventdata) {
+  global $DB;
+// Gather information necessary for eportlink_notify_eportfolio_exam_completed
+// when question_manually_graded event is triggered.
+  return true;
+}
+
+function eportlink_get_info_user_graded($eventdata) {
+  global $DB;
+// Gather information necessary for eportlink_notify_eportfolio_exam_completed
+// when user_graded event is triggered.
+  return true;
+}
+ //get_field('user', 'username', 'id', $userid);
+function eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid) {
   global $CFG, $USER, $COURSE, $DB;
 
-  print_r('notify_eportfolio_exam_completed called.');
+  $user = $DB->get_record('user', array('id' => $grade->userid));
+
+  //print_r('notify_eportfolio_exam_completed called.');
   // build an array with the form data to send
   $data = array();
-  $data['username'] = $USER->username; print_r('$data[username]: ', $data->username);
-  $data['email'] = $USER->email; print_r('$data[email]: ', $data->email);
-  $data['course_identifier'] = $DB->get_record('course', array('id' => $event->courseid)); print_r('$data[course_identifier]: ', $data->course_identifier);
-  $data['quiz_name'] = $quiz->name; print_r('$data[quiz_name]: ', $data->quiz_name);
-  $data['exam_completed_at'] = $grade->timemodified ? $grade->timemodified : time(); print_r('$data[exam_completed_at]: ', $data->exam_completed_at);
+  $data['username'] = $user->username; 
+  $data['email'] = $user->email;
+  $data['course_identifier'] = $DB->get_record('course', array('id' => $courseid));
+  $data['quiz_name'] = $quiz->name;
+  $data['exam_completed_at'] = $grade->timemodified ? $grade->timemodified : time();
 
   $exam_score = round(100*$grade->grade/$quiz->grade); print_r('Set exam_score: ', $exam_score, '$grade-> grade ', $grade->grade, '$quiz->grade ', $quiz->grade);
   $data['exam_score'] = $exam_score;
@@ -96,7 +164,7 @@ function notify_eportfolio_exam_completed($quiz, $grade) {
 
     // get the user's grade for the course
     require_once($CFG->libdir . '/gradelib.php');
-    $str_grade = grade_format_gradevalue($exam_score, grade_item::fetch_course_item($COURSE->id));
+    $str_grade = grade_format_gradevalue($exam_score, grade_item::fetch_course_item($courseid));
     $passed_course = (strpos($str_grade, 'Pass') === false) ? false : true;
     $data['completed_course'] = ($passed_course ? "true" : "false");
 
@@ -105,23 +173,23 @@ function notify_eportfolio_exam_completed($quiz, $grade) {
 
       // issue the certificate
       require_once("../certificate/lib.php");
-      $certificate = get_record('certificate', 'course', $COURSE->id);
-      $cert_issue = certificate_prepare_issue($COURSE, $USER, $certificate);
+      $certificate = get_record('certificate', 'course', $courseid);
+      $cert_issue = certificate_prepare_issue($COURSE, $user, $certificate);
 
       // get the certificate verification code
-      $sql = "SELECT s.code FROM {$CFG->prefix}certificate_issues s WHERE s.userid = $USER->id AND s.classname = '{$COURSE->fullname}'";
+      $sql = "SELECT s.code FROM {$CFG->prefix}certificate_issues s WHERE s.userid = $user->id AND s.classname = '{$COURSE->fullname}'";
       $certificate_code = get_field_sql($sql);
       $data['certificate_code'] = $certificate_code;
 
-      notify_eportfolio($data);
+      eportlink_notify_eportfolio($data);
     }
   // the quiz is not the final
   } else {
-    notify_eportfolio($data);
+    eportlink_notify_eportfolio($data);
   }
 }
 
-function notify_eportfolio($data) {
+function eportlink_notify_eportfolio($data) {
   global $CFG;
 
   $port = '';
