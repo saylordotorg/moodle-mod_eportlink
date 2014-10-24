@@ -102,13 +102,13 @@ require_once('../../config.php');
 require_once($CFG->dirroot . '/mod/quiz/lib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
  
-function eportlink_get_info_quiz_attempt_submitted($eventdata) {
+function eportlink_get_info_quiz_attempt_submitted($event) {
   global $DB;
 // Gather information necessary for eportlink_notify_eportfolio_exam_completed
 // when quiz_attempt_submitted event is triggered.
-  $userid = $eventdata->userid;
-  $courseid = $eventdata->courseid;
-  $quizid = $eventdata->quizid;
+  $userid = $event->data['userid'];
+  $courseid = $event->data['courseid'];
+  $quizid = $event->data['other']['quizid'];
 
   $quiz = $DB->get_record('quiz', array('id' => $quizid));
   $attempts = quiz_get_user_attempts($quizid, $userid);
@@ -118,21 +118,24 @@ function eportlink_get_info_quiz_attempt_submitted($eventdata) {
   $grade->quiz = $quizid;
   $grade->userid = $userid;
   $grade->grade = $bestgrade;
-  $grade->timemodified = time();
+  $grade->timemodified = $event->data['timecreated'];
   
-  eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid)
-
-  return true;
+  if (eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid)) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
-function eportlink_get_info_question_manually_graded($eventdata) {
+function eportlink_get_info_question_manually_graded($event) {
   global $DB;
 // Gather information necessary for eportlink_notify_eportfolio_exam_completed
 // when question_manually_graded event is triggered.
   return true;
 }
 
-function eportlink_get_info_user_graded($eventdata) {
+function eportlink_get_info_user_graded($event) {
   global $DB;
 // Gather information necessary for eportlink_notify_eportfolio_exam_completed
 // when user_graded event is triggered.
@@ -185,7 +188,7 @@ function eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid) {
     }
   // the quiz is not the final
   } else {
-    eportlink_notify_eportfolio($data);
+    if (eportlink_notify_eportfolio($data)
   }
 }
 
@@ -206,7 +209,7 @@ function eportlink_notify_eportfolio($data) {
   $headers['User-Agent'] = 'moodle-eportfolio-add-on/PHP';
 
   // make the request
-  require_once $CFG->libdir . '/filelib.php';
+  require_once ($CFG->libdir . '/filelib.php');
   $response = download_file_content($url, $headers, $data, false, 1300, 120, true);
   if ($response != "Exam recorded") {
     $error_msg = 'Failed request - '.$url.'?=';
