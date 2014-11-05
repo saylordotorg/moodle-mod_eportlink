@@ -18,14 +18,13 @@
 * @copyright 2014, Saylor Academy <contact@saylor.org>
 * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
- 
-$string['pluginname'] = 'EportLink';
-$string['secretkeylabel'] = 'Secret Key';
-$string['secretkeyhelp'] = 'Enter your secret Key from Eportfolio';
-$string['enabled'] = 'Enabled';
-$string['view'] = 'View';
-$string['edit'] = 'Edit';;
-$string['head'] = 'Header';
-$string['topofbody'] = 'Top of body';
-$string['footer'] = 'Footer';
+
+require_once('../../config.php');
+require_once('lib.php');
+
+// Requires a login
+require_login(); 
+
+
+
 ?>

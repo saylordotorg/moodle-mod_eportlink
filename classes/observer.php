@@ -30,6 +30,8 @@ class local_eportlink_observer {
 
 	public static function attempt_submitted(\mod_quiz\event\attempt_submitted $event) {
 		global $DB;
+   
+
 		// Gather information necessary for eportlink_notify_eportfolio_exam_completed
 		// when quiz_attempt_submitted event is triggered.
  		$userid = $event->data['userid'];

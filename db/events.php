@@ -23,31 +23,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 //Event Handlers
-/*$handlers = array (
-    'quiz_attempt_submitted' => array (
-        'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'eportlink_get_info_quiz_attempt_submitted',
-        'schedule'         => 'instant',
-        'internal'         => 1,
-    ),
- 
-    'question_manually_graded' => array (
-        'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'eportlink_get_info_question_manually_graded',
-        'schedule'         => 'instant',
-        'internal'         => 1,
-	),
-	
-	'user_graded' => array (
-        'handlerfile'      => '/mod/local/eportlink/notify_exam_completed.php',
-        'handlerfunction'  => 'eportlink_get_info_user_graded',
-        'schedule'         => 'instant',
-        'internal'         => 1,
-	),
-);
-*/
+
 //New observer for Moodle 2.7 Events2 API. Awesome.
-$observers = array(
+/*$observers = array(
  
     array(
         'eventname'   => '\mod_quiz\event\attempt_submitted',
@@ -61,5 +39,27 @@ $observers = array(
         'eventname'   => '\mod_quiz\event\question_manually_graded',
         'callback'    => 'local_eportlink_observer::question_manually_graded',
     ),
+);*/
+$observers = array(
+ 
+    array(
+        'eventname'   => '\mod_quiz\event\attempt_submitted',
+        'includefile' => '/local/eportlink/lib.php',
+        'callback'    => 'attempt_submitted_handler',
+        'internal'    => false
+    ),
+    array(
+        'eventname'   => '\core\event\user_graded',
+        'includefile' => '/local/eportlink/lib.php',
+        'callback'    => 'user_graded_handler',
+        'internal'    => false
+    ),
+    array(
+        'eventname'   => '\mod_quiz\event\question_manually_graded',
+        'includefile' => '/local/eportlink/lib.php',
+        'callback'    => 'question_manually_graded_handler',
+        'internal'    => false
+    ),
 );
+
 ?>

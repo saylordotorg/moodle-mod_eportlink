@@ -104,6 +104,8 @@ require_once($CFG->dirroot . '/mod/quiz/locallib.php');
  
 function eportlink_get_info_quiz_attempt_submitted($event) {
   global $DB;
+
+echo "<script type='text/javascript'>alert('eportlink_get_info_quiz_attempt_submitted called');</script>";
 // Gather information necessary for eportlink_notify_eportfolio_exam_completed
 // when quiz_attempt_submitted event is triggered.
   $userid = $event->data['userid'];
