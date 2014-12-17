@@ -161,7 +161,8 @@ function eportlink_notify_eportfolio_exam_completed($quiz, $grade, $courseid) {
   $exam_score = round(100*$grade->grade/$quiz->grade); print_r('Set exam_score: ', $exam_score, '$grade-> grade ', $grade->grade, '$quiz->grade ', $quiz->grade);
   $data['exam_score'] = $exam_score;
 
-  $secret = 'tNrY2mPXGS533jkkxDxR4j8YDkSm6krgNqdR1bqEny2NMRyHd7hBqQvU8dYFF9';
+  //$secret = 'tNrY2mPXGS533jkkxDxR4j8YDkSm6krgNqdR1bqEny2NMRyHd7hBqQvU8dYFF9';
+  $secret = $CFG->eportlink_api_key;
   $data['secret'] = $secret;
 
   // this is a final
@@ -202,7 +203,7 @@ function eportlink_notify_eportfolio($data) {
   $host = 'eportfolio.saylor.org';
   // $host = 'localhost';
   // $port = ':3000';
-  $url = 'http://' . $host . $port . '/api/exam_completed';
+  $url = 'https://' . $host . $port . '/api/exam_completed';
 
   // request headers
   $headers = array();
@@ -212,7 +213,7 @@ function eportlink_notify_eportfolio($data) {
 
   // make the request
   require_once ($CFG->libdir . '/filelib.php');
-  $response = download_file_content($url, $headers, $data, false, 1300, 120, true);
+  $response = download_file_content($url, $headers, $data, false, 1300, 120, true, NULL, false);
   if ($response != "Exam recorded") {
     $error_msg = 'Failed request - '.$url.'?=';
     if (isset($data['completed_course'])) {

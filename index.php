@@ -23,7 +23,7 @@ require_once('../../config.php');
 require_once('lib.php');
 
 // Requires a login
-require_login(); 
+require_course_login($course); 
 
 
 

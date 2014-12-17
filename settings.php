@@ -19,11 +19,8 @@
 * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 defined('MOODLE_INTERNAL') || die;
-/*
-if ($ADMIN->fulltree) {
-	$settings->add(
-		new admin_setting_configtext('eport_secret_key', get_string('secretkeylabel', 'eportlink'), get_string('secretkeyhelp', 'eportlink'), '', PARAM_TEXT)
-	 	//$CFG->eport_secret_key
-	);
-}*/
+// TODO - language tags
+$settings->add(
+	new admin_setting_configtext('eportlink_api_key', get_string('apikeylabel', 'local_eportlink'), get_string('apikeyhelp', 'local_eportlink'), '')
+);
 ?>

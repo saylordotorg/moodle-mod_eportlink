@@ -20,8 +20,8 @@
 */
  
 $string['pluginname'] = 'EportLink';
-$string['secretkeylabel'] = 'Secret Key';
-$string['secretkeyhelp'] = 'Enter your secret Key from Eportfolio';
+$string['apikeylabel'] = 'API Key';
+$string['secretkeyhelp'] = 'Enter your API Key for ePortfolio';
 $string['enabled'] = 'Enabled';
 $string['view'] = 'View';
 $string['edit'] = 'Edit';;

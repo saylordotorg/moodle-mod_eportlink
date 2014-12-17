@@ -23,16 +23,16 @@ defined('MOODLE_INTERNAL') || die();
 require_once('../../config.php');
 require_once($CFG->dirroot . '/mod/quiz/lib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
-require_once($CFG->dirroot . '/local/eportlink/notify_exam_completed.php')
 
 function attempt_submitted_handler($event) {
 	global $DB;
-        
+    
+    require_once($CFG->dirroot . '/mod/quiz/notify_exam_completed.php');   
      //Debugging file info
-     //$debugHandle=fopen("$CFG->dirroot . '/eportlink.log'", "a");
-     //fwrite("$CFG->dirroot . '/eportlink.log'", "Function attempt_submitted_handler called");
-     //fclose($debugHandle);
-	echo "<script type='text/javascript'>alert('Function attempt_submitted_handler called');</script>";
+    error_log(print_r("\nattempt_submitted_handler called\n", true));
+    error_log(print_r($event, true));
+
+
 
 	// Gather information necessary for eportlink_notify_eportfolio_exam_completed
 	// when quiz_attempt_submitted event is triggered.
@@ -59,11 +59,11 @@ function attempt_submitted_handler($event) {
 }
 
 function user_graded_handler($event) {
-
+ return;
 }
 
 function question_manually_graded_handler($event) {
-
+ return;
 }
 
 ?>
