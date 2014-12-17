@@ -6,8 +6,10 @@
   <TABLES>
     <TABLE NAME="eportlink" COMMENT="Defines xmldb">
       <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false"/>
       </FIELDS>
       <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for link"/>
       </KEYS>
     </TABLE>
   </TABLES>
