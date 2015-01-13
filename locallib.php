@@ -29,7 +29,7 @@ function attempt_submitted_handler($event) {
     
     require_once($CFG->dirroot . '/mod/quiz/notify_exam_completed.php');   
      //Debugging file info
-    error_log(print_r("\nattempt_submitted_handler called\n", true));
+    error_log(print_r("\nDEBUG: attempt_submitted_handler called\n", true));
     error_log(print_r($event, true));
 
 
