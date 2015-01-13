@@ -20,6 +20,7 @@
 */
  
 $string['pluginname'] = 'EportLink';
+$string['local_eportlinkdescription'] = 'Plugin that enables Eportfolio functionality';
 $string['apikeylabel'] = 'API Key';
 $string['secretkeyhelp'] = 'Enter your API Key for ePortfolio';
 $string['enabled'] = 'Enabled';
