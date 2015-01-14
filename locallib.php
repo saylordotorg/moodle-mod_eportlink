@@ -27,7 +27,7 @@ require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 function attempt_submitted_handler($event) {
 	global $DB;
     
-    require_once($CFG->dirroot . '/mod/quiz/notify_exam_completed.php');   
+    require_once($CFG->dirroot . '/local/eportlink/notify_exam_completed.php');   
      //Debugging file info
     error_log(print_r("\nDEBUG: attempt_submitted_handler called\n", true));
     error_log(print_r($event, true));
