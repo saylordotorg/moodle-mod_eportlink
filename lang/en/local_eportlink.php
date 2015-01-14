@@ -20,12 +20,13 @@
 */
  
 $string['pluginname'] = 'EportLink';
-$string['local_eportlinkdescription'] = 'Plugin that enables Eportfolio functionality';
+$string['local_eportlinkdescription'] = 'Plugin that enables ePortfolio functionality';
 $string['apikeylabel'] = 'API Key';
+$string['apikeyhelp'] = 'Enter your secret API key for ePortfolio:';
 $string['secretkeyhelp'] = 'Enter your API Key for ePortfolio';
 $string['enabled'] = 'Enabled';
 $string['view'] = 'View';
-$string['edit'] = 'Edit';;
+$string['edit'] = 'Edit';
 $string['head'] = 'Header';
 $string['topofbody'] = 'Top of body';
 $string['footer'] = 'Footer';

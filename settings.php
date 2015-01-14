@@ -20,13 +20,9 @@
 */
 defined('MOODLE_INTERNAL') || die;
 // TODO - language tags
+    $settings = new admin_settingpage('local_eportlink', new lang_string('pluginname', 'local_eportlink'));
+    $ADMIN->add('localplugins', $settings);
 
-if ($hassiteconfig) {
-  $settings->add(new admin_setting_configselect('eportlink_api_key', get_string('apikeylabel', 'local_eportlink'), get_string('apikeyhelp', 'local_eportlink'), ''));
-  $settings_page = new admin_settingpage('filter_eportlink','Eportlink!');
+    $settings->add(new admin_setting_configtext('eportlink_api_key', get_string('apikeylabel', 'eportlink'), get_string('apikeyhelp', 'eportlink'), '')
 
-  $settings_page->add(new admin_setting_heading('filter_eportlink/settings', 'eportlink', ''));
-
-  $ADMIN->add('filtersettings', $settings_page);
-}
 ?>
