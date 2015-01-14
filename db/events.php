@@ -48,18 +48,18 @@ $observers = array(
         'callback'    => 'attempt_submitted_handler',
         'internal'    => false
     ),
-    array(
-        'eventname'   => '\core\event\user_graded',
-        'includefile' => '/local/eportlink/locallib.php',
-        'callback'    => 'user_graded_handler',
-        'internal'    => false
-    ),
-    array(
-        'eventname'   => '\mod_quiz\event\question_manually_graded',
-        'includefile' => '/local/eportlink/locallib.php',
-        'callback'    => 'question_manually_graded_handler',
-        'internal'    => false
-    ),
+ //   array(
+ //       'eventname'   => '\core\event\user_graded',
+ //       'includefile' => '/local/eportlink/locallib.php',
+ //       'callback'    => 'user_graded_handler',
+//        'internal'    => false
+//    ),
+//    array(
+//        'eventname'   => '\mod_quiz\event\question_manually_graded',
+//        'includefile' => '/local/eportlink/locallib.php',
+//        'callback'    => 'question_manually_graded_handler',
+//        'internal'    => false
+//    ),
 );
 
 ?>
