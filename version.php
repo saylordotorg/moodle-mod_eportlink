@@ -22,8 +22,9 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2014102200;
+$plugin->version   = 2014102300;
 $plugin->requires  = 2014051200; // Moodle 2.7.0
+$plugin->cron      = 0; // Period for cron to check this module (secs)
 $plugin->component = 'local_eportlink';
 $plugin->maturity  = MATURITY_ALPHA;
 $plugin->release   = '2.7.0.1';

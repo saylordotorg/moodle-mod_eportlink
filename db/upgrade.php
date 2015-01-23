@@ -18,11 +18,27 @@
 * @copyright 2014, Saylor Academy <contact@saylor.org>
 * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
-defined('MOODLE_INTERNAL') || die;
-// TODO - language tags
-    $settings = new admin_settingpage('local_eportlink', new lang_string('pluginname', 'local_eportlink'));
-    $ADMIN->add('localplugins', $settings);
 
-    $settings->add(new admin_setting_configtext('eportlink_api_key', get_string('apikeylabel', 'local_eportlink'), get_string('apikeyhelp', 'local_eportlink'), '')
+function xmldb_local_eportlink_upgrade($oldversion=0) {
 
+    global $CFG, $THEME, $DB;
+    $dbman = $DB->get_manager();
+
+    $result = true;
+
+    if ($oldversion < 2014102300) {
+
+        // Changing type of field description on table accredible to text.
+        $table = new xmldb_table('local_eportlink');
+        $field = new xmldb_field('description', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, 'achievementid');
+
+        // Launch change of type for field description.
+        $dbman->change_field_type($table, $field);
+
+        // Accredible savepoint reached.
+        upgrade_mod_savepoint(true, 2014102300, 'local_eportlink');
+    }
+
+    return true;
+}
 ?>

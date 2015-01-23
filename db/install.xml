@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="mod/eportlink/db" VERSION="20070613" COMMENT="XMLDB file for Moodle mod/eportlink"
+<XMLDB PATH="local/eportlink/db" VERSION="20070613" COMMENT="XMLDB file for Moodle mod/eportlink"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
+>
   <TABLES>
-    <TABLE NAME="eportlink" COMMENT="Defines xmldb">
+    <TABLE NAME="local_eportfolio" COMMENT="Defines certificates">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="name" NEXT="achievementid"/>
+        <FIELD NAME="achievementid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="course" NEXT="description"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="achievementid" NEXT="finalquiz"/>
+        <FIELD NAME="finalquiz" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="description" NEXT="passinggrade"/>
+        <FIELD NAME="passinggrade" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="finalquiz" NEXT="completionactivities"/>
+        <FIELD NAME="completionactivities" TYPE="text" LENGTH="small" SEQUENCE="false" PREVIOUS="passinggrade" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="completionactivities"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for link"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for certificate"/>
       </KEYS>
     </TABLE>
   </TABLES>
