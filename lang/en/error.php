@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Code fragment to define the version of the certificate module
+ * Language strings for the eportlink module's errors
  *
  * @package    mod
  * @subpackage eportlink
@@ -24,10 +24,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2014112600; // The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014051200; // Requires this Moodle version
-$plugin->cron      = 0; // Period for cron to check this module (secs)
-$plugin->component = 'mod_eportlink';
+$string['getissuederror'] = 'An error occured while fetching the certificates with achievement id = {$a}.
 
-$plugin->maturity  = MATURITY_BETA;
-$plugin->release   = "Alpha"; // User-friendly version number
+Please contact eportlink\'s support';
+$string['manualadderror:add'] = 'An error occured while issuing a certificate to eportlink for user id = {$a}.
+
+Please contact eportlink\'s support.
+Error Code: Add001';
+$string['manualadderror:edit'] = 'An error occured while issuing a certificate to eportlink for user id = {$a}.
+
+Please contact eportlink\'s support.
+Error Code: Edit001';

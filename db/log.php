@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Code fragment to define the version of the certificate module
+ * Definition of log events
  *
  * @package    mod
  * @subpackage eportlink
@@ -24,10 +24,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2014112600; // The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014051200; // Requires this Moodle version
-$plugin->cron      = 0; // Period for cron to check this module (secs)
-$plugin->component = 'mod_eportlink';
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->maturity  = MATURITY_BETA;
-$plugin->release   = "Alpha"; // User-friendly version number
+$logs = array(
+    array('module'=>'eportlink', 'action'=>'view', 'mtable'=>'eportlink', 'field'=>'name'),
+    array('module'=>'eportlink', 'action'=>'add', 'mtable'=>'eportlink', 'field'=>'name'),
+     array('module'=>'eportlink', 'action'=>'update', 'mtable'=>'eportlink', 'field'=>'name'),
+    array('module'=>'eportlink', 'action'=>'received', 'mtable'=>'eportlink', 'field'=>'name'),
+);

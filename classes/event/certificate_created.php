@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of the eportlink module for Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,26 +13,36 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
+ 
 /**
- * Add event handlers for the quiz
+ * The certificate_created event.
  *
  * @package    mod
  * @subpackage eportlink
- * @category   event
  * @copyright  eportlink <contact@saylor.org>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-
+namespace mod_eportlink\event;
 defined('MOODLE_INTERNAL') || die();
-
-$observers = array(
-    // Listen for finished quizes.
-    array(
-        'eventname' => '\mod_quiz\event\attempt_submitted',
-        'includefile' => '/mod/eportlink/locallib.php',
-        'callback' => 'eportlink_quiz_submission_handler',
-        'internal' => false
-    ),
-);
+/**
+ * The eportlink event class.
+ *
+ * @since      Moodle 27
+ * @copyright  eportlink <contact@saylor.org>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class certificate_created extends \core\event\base {
+    protected function init() {
+        $this->data['crud'] = 'c'; // c(reate)
+        $this->data['edulevel'] = self::LEVEL_TEACHING;
+        $this->data['objecttable'] = 'eportlink';
+    }
+ 
+    public static function get_name() {
+        return get_string('eventcertificatecreated', 'mod_eportlink');
+    }
+ 
+    public function get_description() {
+        return "User {$this->userid} issued certificate id {$this->objectid}.";
+    }
+}
