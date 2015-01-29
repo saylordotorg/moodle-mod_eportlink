@@ -24,10 +24,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2014112600; // The current module version (Date: YYYYMMDDXX)
+$plugin->version   = 2015012900; // The current module version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014051200; // Requires this Moodle version
 $plugin->cron      = 0; // Period for cron to check this module (secs)
 $plugin->component = 'mod_eportlink';
 
 $plugin->maturity  = MATURITY_BETA;
-$plugin->release   = "Alpha"; // User-friendly version number
+$plugin->release   = "1.0RC1"; // User-friendly version number
