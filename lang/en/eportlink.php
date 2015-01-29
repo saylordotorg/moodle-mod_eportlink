@@ -43,13 +43,13 @@ $string['gradeissueheader'] = 'Auto-issue criteria: by final quiz grade';
 $string['id'] = 'ID';
 $string['indexheader'] = 'All certificates for {$a}';
 $string['issued'] = 'Issued';
-$string['manualheader'] = 'Manually issue certificates';
-$string['modulename'] = 'eportlink certificate';
-$string['modulename_help'] = 'The eportlink certificates activity module allows you to issue course certificates to students on eportlink.com.
+$string['manualheader'] = 'Send scores to ePortfolio';
+$string['modulename'] = 'Eportlink';
+$string['modulename_help'] = 'The eportlink module allows you to send quiz scores to ePortfolio.
 
 Add the activity wherever you want your students see their certificate.';
 $string['modulename_link'] = 'mod/eportlink/view';
-$string['modulenameplural'] = 'eportlink certificates';
+$string['modulenameplural'] = 'Eportlink';
 $string['nocertificates'] = 'There are no certificates';
 $string['passinggrade'] = 'Percentage grade needed to pass course (%)';
 $string['pluginadministration'] = 'eportlink certificates administration';
