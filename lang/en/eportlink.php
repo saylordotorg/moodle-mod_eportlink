@@ -24,38 +24,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['achievementid'] = 'Achievement id';
-$string['autoissueheader'] = 'Automatic issuing criteria';
 $string['apikeylabel'] = 'API key';
-$string['apikeyhelp'] = 'Enter your API key from eportlink.com';
-$string['eportlink:addinstance'] = 'Add a certificate instance';
-$string['eportlink:manage'] = 'Manage a certificate instance';
-$string['eportlink:student'] = 'Retrieve a certificate';
-$string['eportlink:view'] = 'View a certificate';
-$string['certificatename'] = 'Certificate name';
-$string['certificateurl'] = 'Certificate url';
-$string['chooseexam'] = 'Choose final quiz';
-$string['completionissueheader'] = 'Auto-issue criteria: by activity completion';
-$string['dashboardlink'] = 'eportlink dashboard link';
-$string['datecreated'] = 'Date created';
-$string['eventcertificatecreated'] = 'A certificate was posted to eportlink';
-$string['gradeissueheader'] = 'Auto-issue criteria: by final quiz grade';
+$string['apikeyhelp'] = 'Enter your API key for ePortfolio.';
 $string['id'] = 'ID';
-$string['indexheader'] = 'All certificates for {$a}';
-$string['issued'] = 'Issued';
 $string['manualheader'] = 'Send scores to ePortfolio';
-$string['modulename'] = 'Eportlink';
-$string['modulename_help'] = 'The eportlink module allows you to send quiz scores to ePortfolio.
+$string['modulename'] = 'ePortLink';
+$string['modulename_help'] = 'The ePortLink module allows you to send quiz scores to ePortfolio.
 
 Add the activity wherever you want your students see their certificate.';
-$string['modulename_link'] = 'mod/eportlink/view';
-$string['modulenameplural'] = 'Eportlink';
-$string['nocertificates'] = 'There are no certificates';
-$string['passinggrade'] = 'Percentage grade needed to pass course (%)';
-$string['pluginadministration'] = 'eportlink certificates administration';
-$string['pluginname'] = 'eportlink certificates';
-$string['recipient'] = 'Recipient';
-$string['viewheader'] = 'Certificates for {$a}';
-$string['viewimgcomplete'] = 'Click to view your certificate';
-$string['viewimgincomplete'] = 'Course still in progress';
-$string['viewsubheader'] = 'Achievement id: {$a}';
+$string['modulenameplural'] = 'ePortLinks';
+$string['pluginadministration'] = 'ePortLink  administration';
+$string['pluginname'] = 'ePortLink';
