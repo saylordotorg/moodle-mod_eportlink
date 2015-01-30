@@ -45,19 +45,20 @@ function eportlink_quiz_submission_handler($event) {
 	$student_grade = ( quiz_get_best_grade($quiz, $user->id) / $quiz->grade ) * 100;
 	//round(100 * (quiz_get_best_grade($quiz, $user->id) / $quiz->grade));
 
-	$completed_course = 'false';
+	$completed_course = "false";
 	$quiz_is_final = false;
 
 	if (strpos($quiz->name, 'Final') != false) {
 		$quiz_is_final = true;
 	}
-	else if ($student_grade < 70) {
+	if ($quiz_is_final == true and $student_grade < 70) {
 		return;
 	}
-	else if ($quiz_is_final == true && $student_grade >= 70) {
+	if ($quiz_is_final == true and $student_grade >= 70) {
 		$completed_course = "true";
 	}
-
+	debugging('STRPOS:'.strpos($quiz->name, 'Final'), DEBUG_ALL);
+	debugging('quiz_is_final: '.$quiz_is_final, DEBUG_ALL);
 	eportlink_build_data($attempt, $quiz, $user, $student_grade, $completed_course, $quiz_event);
 
 }
