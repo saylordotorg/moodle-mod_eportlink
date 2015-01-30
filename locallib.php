@@ -45,22 +45,24 @@ function eportlink_quiz_submission_handler($event) {
 	$student_grade = ( quiz_get_best_grade($quiz, $user->id) / $quiz->grade ) * 100;
 	//round(100 * (quiz_get_best_grade($quiz, $user->id) / $quiz->grade));
 
-	$student_pass = 'false';
+	$completed_course = 'false';
 	$quiz_is_final = false;
 
 	if (strpos($quiz->name, 'Final') != false) {
 		$quiz_is_final = true;
-		$student_pass = 'true';
 	}
 	else if ($student_grade < 70) {
 		return;
 	}
+	else if ($quiz_is_final == true && $student_grade >= 70) {
+		$completed_course = "true";
+	}
 
-	eportlink_build_data($attempt, $quiz, $user, $student_grade, $student_pass, $quiz_event);
+	eportlink_build_data($attempt, $quiz, $user, $student_grade, $completed_course, $quiz_event);
 
 }
 
-function eportlink_build_data($attempt, $quiz, $user, $student_grade, $student_pass, $quiz_event) {
+function eportlink_build_data($attempt, $quiz, $user, $student_grade, $completed_course, $quiz_event) {
 	global $DB, $CFG, $COURSE;
 	require_once($CFG->dirroot . '/mod/quiz/lib.php');
 
@@ -72,7 +74,7 @@ function eportlink_build_data($attempt, $quiz, $user, $student_grade, $student_p
 	$data['exam_completed_at'] = time();
 	$data['exam_score'] = $student_grade;
 	$data['secret'] = $CFG->eportlink_api_key;
-	$data['completed_course'] = $student_pass;
+	$data['completed_course'] = $completed_course;
 	$data['certificate_code'] = '';
 
 	eportlink_notify_eportfolio($data);
