@@ -48,7 +48,8 @@ function eportlink_quiz_submission_handler($event) {
 	$completed_course = "false";
 	$quiz_is_final = false;
 
-	if (strpos($quiz->name, 'Final') !== false) {
+// Check for the word 'final' in the quiz name. If present, and the student gets a 70, course is marked as complete.
+	if (stripos($quiz->name, 'final') !== false) {
 		$quiz_is_final = true;
 	}
 	if (($quiz_is_final == true) and ($student_grade < 70)) {
