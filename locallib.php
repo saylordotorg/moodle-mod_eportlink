@@ -51,10 +51,10 @@ function eportlink_quiz_submission_handler($event) {
 	if (strpos($quiz->name, 'Final') != false) {
 		$quiz_is_final = true;
 	}
-	if (($quiz_is_final == true) and ($student_grade < 70) {
+	if (($quiz_is_final == true) and ($student_grade < 70)) {
 		return;
 	}
-	if (($quiz_is_final == true) and ($student_grade >= 70) {
+	if (($quiz_is_final == true) and ($student_grade >= 70)) {
 		$completed_course = "true";
 	}
 	debugging('STRPOS:'.strpos($quiz->name, 'Final'), DEBUG_ALL);
