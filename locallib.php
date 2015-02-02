@@ -48,7 +48,7 @@ function eportlink_quiz_submission_handler($event) {
 	$completed_course = "false";
 	$quiz_is_final = false;
 
-	if (strpos($quiz->name, 'Final') != false) {
+	if (strpos($quiz->name, 'Final') !== false) {
 		$quiz_is_final = true;
 	}
 	if (($quiz_is_final == true) and ($student_grade < 70)) {
