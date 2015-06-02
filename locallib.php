@@ -58,8 +58,6 @@ function eportlink_quiz_submission_handler($event) {
 	if (($quiz_is_final == true) and ($student_grade >= 70)) {
 		$completed_course = "true";
 	}
-	debugging('STRPOS:'.strpos($quiz->name, 'Final'), DEBUG_ALL);
-	debugging('quiz_is_final: '.$quiz_is_final, DEBUG_ALL);
 	eportlink_build_data($attempt, $quiz, $user, $student_grade, $completed_course, $quiz_event);
 
 }
