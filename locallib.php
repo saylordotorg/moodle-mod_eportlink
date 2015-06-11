@@ -72,7 +72,8 @@ function eportlink_build_data($attempt, $quiz, $user, $student_grade, $completed
 	$data['course_identifier'] = $COURSE->shortname;
 	$data['quiz_name'] = $quiz->name;
 	$data['exam_completed_at'] = time();
-	$data['exam_score'] = $student_grade;
+	// exam_score MUST be int
+	$data['exam_score'] = (int) round($student_grade, 0, PHP_ROUND_HALF_UP);
 	$data['secret'] = $CFG->eportlink_api_key;
 	$data['completed_course'] = $completed_course;
 	$data['certificate_code'] = '';
